@@ -9,11 +9,24 @@ const tempSymbol = '°';
 //const iconPath = '../icons/weather-icons/';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.nightPrefix = this.nightPrefix.bind(this);
+  }
+
   state = {
-    todayHourly: [],
+    hourly: [],
     forecast: [],
     isLoading: true
   };
+
+  nightPrefix(hour) {
+    if (hour < this.state.sunRise || hour > this.state.sunSet) {
+      return 'nt_';
+    } else {
+      return '';
+    }
+  }
 
   componentWillMount() {
     this.fetchWeather();
@@ -24,22 +37,20 @@ class App extends Component {
       const res = await fetch(
         `${ROOT_URL}${
           API_KEY
-        }/geolookup/conditions/forecast10day/hourly/q/NZ/Wellington.json`
+        }/geolookup/conditions/forecast10day/hourly/astronomy/q/NZ/Wellington.json`
       );
 
       const weather = await res.json();
 
       this.setState({
         currentTemp: weather.current_observation.temp_c,
-        feelsLike: weather.current_observation.feelslike_c,
         currentDescription:
           weather.forecast.txt_forecast.forecastday[0].fcttext_metric,
         currentIcon: weather.current_observation.icon,
-        currentWindDeg: weather.current_observation.wind_degrees,
-        currentWindKph: weather.current_observation.wind_kph,
-        currentWindDir: weather.current_observation.wind_dir,
-        todayHigh: weather.forecast.simpleforecast.forecastday[0].high.celsius,
-        todayHourly: weather.hourly_forecast,
+        currentWindSpeed: weather.current_observation.wind_kph,
+        sunRise: parseInt(weather.moon_phase.sunrise.hour, 10),
+        sunSet: parseInt(weather.moon_phase.sunset.hour, 10),
+        hourly: weather.hourly_forecast,
         //don't need all 10 days worth, or today
         forecast: weather.forecast.simpleforecast.forecastday.slice(1, 5)
       });
@@ -49,7 +60,7 @@ class App extends Component {
   };
 
   render() {
-    if (!this.state.todayHourly.length) {
+    if (!this.state.hourly.length) {
       return <div className="loader" />;
     } else {
       return (
@@ -59,23 +70,33 @@ class App extends Component {
               {Math.round(this.state.currentTemp)}
             </div>
 
-            <img
-              className="icon now-icon"
-              src={require(`../icons/weather-icons/${
-                this.state.currentIcon
-              }.png`)}
-              alt="Icon depicting current weather"
-            />
+            {/* windy override */}
+            {this.state.currentWindSpeed > 35 ? (
+              <img
+                className="icon now-icon"
+                src={require(`../icons/weather-icons/windy.png`)}
+                alt="Icon depicting current weather"
+              />
+            ) : (
+              <img
+                className="icon now-icon"
+                src={require(`../icons/weather-icons/${this.nightPrefix(
+                  new Date().getHours()
+                )}${this.state.currentIcon}.png`)}
+                alt="Icon depicting current weather"
+              />
+            )}
 
             <div>{this.state.currentDescription}</div>
           </div>
 
           <div className="hourly">
             <div className="hours-wrap">
-              {this.state.todayHourly.map(hour => (
+              {this.state.hourly.map(hour => (
                 <Hour
                   key={hour.FCTTIME.epoch}
                   tempsymbol={tempSymbol}
+                  nightPrefix={this.nightPrefix}
                   {...hour}
                 />
               ))}

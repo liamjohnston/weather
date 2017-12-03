@@ -11,16 +11,28 @@ const Hour = props => {
           <div>&nbsp;</div>
         )}
         {/* changes to 12hr time format, and replaces '0' with 12 at midnight */}
-        {parseInt(props.FCTTIME.hour) > 12
-          ? parseInt(props.FCTTIME.hour) - 12
-          : parseInt(props.FCTTIME.hour) == 0 ? 12 : props.FCTTIME.hour}
+        {parseInt(props.FCTTIME.hour, 10) > 12
+          ? parseInt(props.FCTTIME.hour, 10) - 12
+          : parseInt(props.FCTTIME.hour, 10) === 0 ? 12 : props.FCTTIME.hour}
         {props.FCTTIME.ampm}
       </div>
-      <img
-        className="icon today-icon"
-        src={require(`../icons/weather-icons/${props.icon}.png`)}
-        alt="Weather at the hour"
-      />
+
+      {/* windy override */}
+      {props.wspd.metric > 35 ? (
+        <img
+          className="icon today-icon"
+          src={require(`../icons/weather-icons/windy.png`)}
+          alt="Weather at the hour"
+        />
+      ) : (
+        <img
+          className="icon today-icon"
+          src={require(`../icons/weather-icons/${props.nightPrefix(
+            props.FCTTIME.hour
+          )}${props.icon}.png`)}
+          alt="Weather at the hour"
+        />
+      )}
       <div>
         {props.feelslike.metric}
         {props.tempSymbol}
