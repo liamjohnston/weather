@@ -12,6 +12,11 @@ class App extends Component {
   constructor() {
     super();
     this.nightPrefix = this.nightPrefix.bind(this);
+    this.dayOrNightMode = this.dayOrNightMode.bind(this);
+  }
+
+  componentWillMount() {
+    this.fetchWeather();
   }
 
   state = {
@@ -28,8 +33,12 @@ class App extends Component {
     }
   }
 
-  componentWillMount() {
-    this.fetchWeather();
+  dayOrNightMode(hour) {
+    if (hour < this.state.sunRise || hour > this.state.sunSet) {
+      return 'nightMode';
+    } else {
+      return 'dayMode';
+    }
   }
 
   fetchWeather = async () => {
@@ -50,7 +59,7 @@ class App extends Component {
         currentWindSpeed: weather.current_observation.wind_kph,
         sunRise: parseInt(weather.moon_phase.sunrise.hour, 10),
         sunSet: parseInt(weather.moon_phase.sunset.hour, 10),
-        hourly: weather.hourly_forecast,
+        hourly: weather.hourly_forecast.slice(0, 24),
         //don't need all 10 days worth, or today
         forecast: weather.forecast.simpleforecast.forecastday.slice(1, 5)
       });
@@ -64,7 +73,7 @@ class App extends Component {
       return <div className="loader" />;
     } else {
       return (
-        <div className="wrap">
+        <div className={`wrap ${this.dayOrNightMode(new Date().getHours())}`}>
           <div className="now">
             <div className="now-temp" data-tempsymbol={tempSymbol}>
               {Math.round(this.state.currentTemp)}

@@ -37,14 +37,13 @@ body {
 }
 
 .now {
-  //  background: linear-gradient(to top, #56ccf2, #2f80ed);
-  background: deeppink;
+  background: linear-gradient(to top, #56ccf2, #2f80ed);
   color: #fff;
   text-align: center;
 }
-// .nighttime .now {
-//   background: linear-gradient(to top, #536976, #292e49);
-// }
+.nightMode .now {
+  background: linear-gradient(to top, #536976, #292e49);
+}
 .now-temp {
   font-size: 12rem;
   font-weight: bold;
