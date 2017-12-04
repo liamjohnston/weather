@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
+import Now from './Now';
 import Hour from './Hour';
 import FutureDay from './FutureDay';
 
 const API_KEY = 'b3594d788adca712';
 const ROOT_URL = 'http://api.wunderground.com/api/';
-const tempSymbol = '°';
-//const iconPath = '../icons/weather-icons/';
+//const tempSymbol = '°';
 
 class App extends Component {
   constructor() {
@@ -74,37 +74,13 @@ class App extends Component {
     } else {
       return (
         <div className={`wrap ${this.dayOrNightMode(new Date().getHours())}`}>
-          <div className="now">
-            <div className="now-temp" data-tempsymbol={tempSymbol}>
-              {Math.round(this.state.currentTemp)}
-            </div>
-
-            {/* windy override */}
-            {this.state.currentWindSpeed > 35 ? (
-              <img
-                className="icon now-icon"
-                src={require(`../icons/weather-icons/windy.png`)}
-                alt="Icon depicting current weather"
-              />
-            ) : (
-              <img
-                className="icon now-icon"
-                src={require(`../icons/weather-icons/${this.nightPrefix(
-                  new Date().getHours()
-                )}${this.state.currentIcon}.png`)}
-                alt="Icon depicting current weather"
-              />
-            )}
-
-            <div>{this.state.currentDescription}</div>
-          </div>
+          <Now nightPrefix={this.nightPrefix} {...this.state} />
 
           <div className="hourly">
             <div className="hours-wrap">
               {this.state.hourly.map(hour => (
                 <Hour
                   key={hour.FCTTIME.epoch}
-                  tempsymbol={tempSymbol}
                   nightPrefix={this.nightPrefix}
                   {...hour}
                 />

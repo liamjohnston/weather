@@ -33,10 +33,7 @@ const Hour = props => {
           alt="Weather at the hour"
         />
       )}
-      <div>
-        {props.feelslike.metric}
-        {props.tempSymbol}
-      </div>
+      <div>{props.feelslike.metric}</div>
     </div>
   );
 };

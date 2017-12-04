@@ -10,10 +10,10 @@ body {
   margin: 0;
   padding: 0;
   font-size: 2rem;
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Lato', sans-serif;
   color: $text-dark;
   font-weight: 300;
-  height: 100%;
+  min-height: 100vh;
 }
 .nowrap {
   white-space: nowrap;
@@ -40,6 +40,9 @@ body {
   background: linear-gradient(to top, #56ccf2, #2f80ed);
   color: #fff;
   text-align: center;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
 }
 .nightMode .now {
   background: linear-gradient(to top, #536976, #292e49);
@@ -49,24 +52,23 @@ body {
   font-weight: bold;
   position: relative;
   margin-bottom: -3rem;
-  &::after {
-    content: attr(data-tempsymbol);
-    position: absolute;
-    top: 0;
-  }
+  // &::after {
+  //   content: attr(data-tempsymbol);
+  //   position: relative;
+  //   top: 0;
+  // }
 }
 .now-icon {
-  width: 200px;
+  width: 20rem;
   filter: invert(100%);
 }
 .today-icon {
-  width: 40px;
+  width: 4rem;
 }
 .future-icon {
-  width: 60px;
+  width: 6rem;
 }
 .now-desc {
-  //  margin-top: -2rem;
   &::first-letter {
     text-transform: uppercase;
   }
@@ -156,15 +158,50 @@ body {
   }
 }
 
-@media all and (min-width: 380px) {
+@media all and (min-width: 400px) {
   body {
     background: #ddd;
   }
   .wrap {
-    max-width: 350px;
+    max-width: 35rem;
     margin: 2rem auto;
     border-radius: 4px;
     overflow: hidden;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+}
+
+@media all and (min-width: 880px) {
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .wrap {
+    max-width: 80rem;
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+  }
+  .now {
+    padding: 2.5rem;
+  }
+  .hourly {
+    order: 2;
+    grid-column: span 2;
+  }
+  .now-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .now-temp {
+    margin-bottom: 0;
+    order: 1;
+    font-size: 10rem;
+    margin-left: 1rem;
+  }
+  .now-icon {
+    width: 15rem;
+    margin-right: 1rem;
   }
 }
