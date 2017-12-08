@@ -7,6 +7,7 @@ import FutureDay from './FutureDay';
 const API_KEY = 'b3594d788adca712';
 const ROOT_URL = 'http://api.wunderground.com/api/';
 //const tempSymbol = '°';
+const windThreshhold = 35; //if >, show windy icon
 
 class App extends Component {
   constructor() {
@@ -74,7 +75,11 @@ class App extends Component {
     } else {
       return (
         <div className={`wrap ${this.dayOrNightMode(new Date().getHours())}`}>
-          <Now nightPrefix={this.nightPrefix} {...this.state} />
+          <Now
+            nightPrefix={this.nightPrefix}
+            windThreshhold={windThreshhold}
+            {...this.state}
+          />
 
           <div className="hourly">
             <div className="hours-wrap">
@@ -82,6 +87,7 @@ class App extends Component {
                 <Hour
                   key={hour.FCTTIME.epoch}
                   nightPrefix={this.nightPrefix}
+                  windThreshhold={windThreshhold}
                   {...hour}
                 />
               ))}

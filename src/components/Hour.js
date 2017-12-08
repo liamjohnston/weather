@@ -18,7 +18,7 @@ const Hour = props => {
       </div>
 
       {/* windy override */}
-      {props.wspd.metric > 35 ? (
+      {props.wspd.metric > props.windThreshhold ? (
         <img
           className="icon today-icon"
           src={require(`../icons/weather-icons/windy.png`)}

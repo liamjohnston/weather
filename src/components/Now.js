@@ -8,7 +8,7 @@ class Now extends React.Component {
           <div className="now-temp">{Math.round(this.props.currentTemp)}</div>
 
           {/* windy override */}
-          {this.props.currentWindSpeed > 35 ? (
+          {this.props.currentWindSpeed > this.props.windThreshhold ? (
             <img
               className="icon now-icon"
               src={require(`../icons/weather-icons/windy.png`)}
