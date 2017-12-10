@@ -3,7 +3,7 @@ import React from 'react';
 const Hour = props => {
   return (
     <div className="hourly-hour" key={props.FCTTIME.epoch}>
-      <div>
+      <div className="muted">
         {/* helper label to know when a new day starts */}
         {props.FCTTIME.hour === '0' ? (
           <div className="nowrap">{props.FCTTIME.weekday_name_abbrev} →</div>
@@ -17,22 +17,27 @@ const Hour = props => {
         {props.FCTTIME.ampm}
       </div>
 
-      {/* windy override */}
-      {props.wspd.metric > props.windThreshhold ? (
+      <div className="icon-wrap">
         <img
           className="icon today-icon"
-          src={require(`../icons/weather-icons/windy.png`)}
+          src={require(`../icons/weather-icons/${
+            props.isNight(props.FCTTIME.hour) ? 'nt_' : ''
+          }${props.icon}.png`)}
           alt="Weather at the hour"
         />
-      ) : (
-        <img
-          className="icon today-icon"
-          src={require(`../icons/weather-icons/${props.nightPrefix(
-            props.FCTTIME.hour
-          )}${props.icon}.png`)}
-          alt="Weather at the hour"
-        />
-      )}
+
+        {/* overlay wind icon on existing icon */}
+        {props.wspd.metric > props.windThreshhold ? (
+          <img
+            className="icon today-icon icon-overlay"
+            src={require(`../icons/weather-icons/windy.png`)}
+            alt="Weather at the hour"
+          />
+        ) : (
+          ''
+        )}
+      </div>
+
       <div>{props.feelslike.metric}</div>
     </div>
   );

@@ -7,13 +7,12 @@ import FutureDay from './FutureDay';
 const API_KEY = 'b3594d788adca712';
 const ROOT_URL = 'http://api.wunderground.com/api/';
 //const tempSymbol = '°';
-const windThreshhold = 35; //if >, show windy icon
+const windThreshhold = 35; //if >, overlay a windy icon
 
 class App extends Component {
   constructor() {
     super();
-    this.nightPrefix = this.nightPrefix.bind(this);
-    this.dayOrNightMode = this.dayOrNightMode.bind(this);
+    this.isNight = this.isNight.bind(this);
   }
 
   componentWillMount() {
@@ -26,21 +25,13 @@ class App extends Component {
     isLoading: true
   };
 
-  nightPrefix(hour) {
+  isNight = hour => {
     if (hour < this.state.sunRise || hour > this.state.sunSet) {
-      return 'nt_';
+      return true;
     } else {
-      return '';
+      return false;
     }
-  }
-
-  dayOrNightMode(hour) {
-    if (hour < this.state.sunRise || hour > this.state.sunSet) {
-      return 'nightMode';
-    } else {
-      return 'dayMode';
-    }
-  }
+  };
 
   fetchWeather = async () => {
     try {
@@ -57,7 +48,7 @@ class App extends Component {
         currentDescription:
           weather.forecast.txt_forecast.forecastday[0].fcttext_metric,
         currentIcon: weather.current_observation.icon,
-        currentWindSpeed: weather.current_observation.wind_kph,
+        currentWindSpeed: weather.current_observation.wind_gust_kph,
         sunRise: parseInt(weather.moon_phase.sunrise.hour, 10),
         sunSet: parseInt(weather.moon_phase.sunset.hour, 10),
         hourly: weather.hourly_forecast.slice(0, 24),
@@ -74,9 +65,13 @@ class App extends Component {
       return <div className="loader" />;
     } else {
       return (
-        <div className={`wrap ${this.dayOrNightMode(new Date().getHours())}`}>
+        <div
+          className={`wrap ${
+            this.isNight(new Date().getHours()) ? 'nightMode' : 'dayMode'
+          }`}
+        >
           <Now
-            nightPrefix={this.nightPrefix}
+            isNight={this.isNight}
             windThreshhold={windThreshhold}
             {...this.state}
           />
@@ -86,7 +81,7 @@ class App extends Component {
               {this.state.hourly.map(hour => (
                 <Hour
                   key={hour.FCTTIME.epoch}
-                  nightPrefix={this.nightPrefix}
+                  isNight={this.isNight}
                   windThreshhold={windThreshhold}
                   {...hour}
                 />

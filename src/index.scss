@@ -18,7 +18,9 @@ body {
 .nowrap {
   white-space: nowrap;
 }
-
+.muted {
+  color: #666;
+}
 .wrap {
   display: flex;
   flex-direction: column;
@@ -62,8 +64,17 @@ body {
   width: 20rem;
   filter: invert(100%);
 }
+.icon-wrap {
+  position: relative;
+}
 .today-icon {
   width: 4rem;
+}
+.icon-overlay {
+  position: absolute;
+  transform: translateX(-25%) translateY(-25%);
+  left: 50%;
+  top: 50%;
 }
 .future-icon {
   width: 6rem;

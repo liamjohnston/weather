@@ -10,7 +10,9 @@ class FutureDay extends React.Component {
   render() {
     return (
       <div className="future-day" key={this.props.date.day}>
-        <div className="future-day-name">{this.props.date.weekday_short}</div>
+        <div className="future-day-name muted">
+          {this.props.date.weekday_short}
+        </div>
         <div className="future-day-icon">
           <img
             className="icon future-icon"
