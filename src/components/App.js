@@ -65,33 +65,42 @@ class App extends Component {
       return <div className="loader" />;
     } else {
       return (
-        <div
-          className={`wrap ${
-            this.isNight(new Date().getHours()) ? 'nightMode' : 'dayMode'
-          }`}
-        >
-          <Now
-            isNight={this.isNight}
-            windThreshhold={windThreshhold}
-            {...this.state}
-          />
+        <div>
+          <div
+            className={`wrap ${
+              this.isNight(new Date().getHours()) ? 'nightMode' : 'dayMode'
+            }`}
+          >
+            <Now
+              isNight={this.isNight}
+              windThreshhold={windThreshhold}
+              {...this.state}
+            />
 
-          <div className="hourly">
-            <div className="hours-wrap">
-              {this.state.hourly.map(hour => (
-                <Hour
-                  key={hour.FCTTIME.epoch}
-                  isNight={this.isNight}
-                  windThreshhold={windThreshhold}
-                  {...hour}
-                />
+            <div className="hourly">
+              <div className="hours-wrap">
+                {this.state.hourly.map(hour => (
+                  <Hour
+                    key={hour.FCTTIME.epoch}
+                    isNight={this.isNight}
+                    windThreshhold={windThreshhold}
+                    {...hour}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="future">
+              {this.state.forecast.map(day => (
+                <FutureDay key={day.date.day} {...day} />
               ))}
             </div>
-          </div>
-          <div className="future">
-            {this.state.forecast.map(day => (
-              <FutureDay key={day.date.day} {...day} />
-            ))}
+            <footer>
+              Made with{' '}
+              <span role="img" aria-label="heart emoji">
+                ❤️
+              </span>{' '}
+              by <a href="http://liam.nz">Liam</a>
+            </footer>
           </div>
         </div>
       );
