@@ -6,7 +6,6 @@ import FutureDay from './FutureDay';
 
 const API_KEY = 'b3594d788adca712';
 const ROOT_URL = 'http://api.wunderground.com/api/';
-//const tempSymbol = '°';
 const windThreshhold = 35; //if >, overlay a windy icon
 
 class App extends Component {
@@ -51,9 +50,9 @@ class App extends Component {
         currentWindSpeed: weather.current_observation.wind_gust_kph,
         sunRise: parseInt(weather.moon_phase.sunrise.hour, 10),
         sunSet: parseInt(weather.moon_phase.sunset.hour, 10),
-        hourly: weather.hourly_forecast.slice(0, 24),
+        hourly: weather.hourly_forecast.slice(0, 30),
         //don't need all 10 days worth, or today
-        forecast: weather.forecast.simpleforecast.forecastday.slice(1, 5)
+        forecast: weather.forecast.simpleforecast.forecastday.slice(1, 6)
       });
     } catch (e) {
       this.setState({ err: e.message });

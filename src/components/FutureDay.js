@@ -11,7 +11,7 @@ class FutureDay extends React.Component {
     return (
       <div className="future-day" key={this.props.date.day}>
         <div className="future-day-name muted">
-          {this.props.date.weekday_short}
+          {this.props.period === 2 ? 'Tomorrow' : this.props.date.weekday_short}
         </div>
         <div className="future-day-icon">
           <img
