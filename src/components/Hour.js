@@ -38,7 +38,7 @@ const Hour = props => {
         )}
       </div>
 
-      <div>{props.feelslike.metric}</div>
+      <div className="bold">{props.feelslike.metric}</div>
     </div>
   );
 };

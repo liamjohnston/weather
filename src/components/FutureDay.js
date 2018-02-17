@@ -11,7 +11,7 @@ class FutureDay extends React.Component {
     return (
       <div className="future-day" key={this.props.date.day}>
         <div className="future-day-name muted">
-          {this.props.period === 2 ? 'Tomorrow' : this.props.date.weekday_short}
+          {this.props.period === 2 ? 'Tomorrow' : this.props.date.weekday}
         </div>
         <div className="future-day-icon">
           <img
@@ -20,22 +20,20 @@ class FutureDay extends React.Component {
             alt="Icon depicting future weather"
           />
         </div>
-        <div className="future-day-part">
-          <div className="future-high">{this.props.high.celsius}</div>
-          <div className="future-low">{this.props.low.celsius}</div>
+        <div className="future-day-part future-high">
+          {this.props.high.celsius}
+          {/* <div className="future-low">{this.props.low.celsius}</div> */}
         </div>
-        <div className="future-day-part">
-          <span className="units">{this.props.maxwind.dir}</span>
-          <div
+        <div className="future-day-part future-wind">
+          {/* <span className="units">{this.props.maxwind.dir}</span> */}
+          <span
             className="future-direction"
             style={this.directionStyle(this.props.maxwind.degrees)}
           >
             &#8679;
-          </div>
-          <div>
-            {this.props.maxwind.kph}
-            <span className="units"> kph</span>
-          </div>
+          </span>
+          {this.props.maxwind.kph}
+          <span className="units"> kph</span>
         </div>
       </div>
     );

@@ -40,27 +40,17 @@ class App extends Component {
 
       const weather = await res.json();
 
-      //shortener helpers
-      const current = weather.current_observation;
-      const forecast = weather.forecast;
-
       this.setState({
-        where: {
-          city: current.display_location.city,
-          country: current.display_location.country
-        },
-        currentTemp: current.feelslike_c, //temp_c,
-        currentSummary: current.weather,
-        currentDescription: forecast.txt_forecast.forecastday[0].fcttext_metric,
-        todayHigh: forecast.simpleforecast.forecastday[0].high.celsius,
-        todayLow: forecast.simpleforecast.forecastday[0].low.celsius,
-        currentIcon: current.icon,
-        currentWindSpeed: current.wind_gust_kph,
+        currentTemp: weather.current_observation.temp_c,
+        currentDescription:
+          weather.forecast.txt_forecast.forecastday[0].fcttext_metric,
+        currentIcon: weather.current_observation.icon,
+        currentWindSpeed: weather.current_observation.wind_gust_kph,
         sunRise: parseInt(weather.moon_phase.sunrise.hour, 10),
         sunSet: parseInt(weather.moon_phase.sunset.hour, 10),
         hourly: weather.hourly_forecast.slice(0, 30),
         //don't need all 10 days worth, or today
-        forecast: forecast.simpleforecast.forecastday.slice(1, 6)
+        forecast: weather.forecast.simpleforecast.forecastday.slice(1, 6)
       });
     } catch (e) {
       this.setState({ err: e.message });
