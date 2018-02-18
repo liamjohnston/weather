@@ -6,7 +6,12 @@ import FutureDay from './FutureDay';
 
 const API_KEY = 'b3594d788adca712';
 const ROOT_URL = 'http://api.wunderground.com/api/';
-const windThreshhold = 35; //if >, overlay a windy icon
+
+//wind threshholds
+const wind_vstrong = 45;
+const wind_strong = 35; //if >, overlay a windy icon
+const wind_medium = 20;
+//const wind_light = 10;
 
 class App extends Component {
   constructor() {
@@ -80,7 +85,10 @@ class App extends Component {
           >
             <Now
               isNight={this.isNight}
-              windThreshhold={windThreshhold}
+              windThreshhold={wind_strong}
+              windVStrong={wind_vstrong}
+              windStrong={wind_strong}
+              windMedium={wind_medium}
               {...this.state}
             />
             <div className="hourly">
@@ -89,7 +97,7 @@ class App extends Component {
                   <Hour
                     key={hour.FCTTIME.epoch}
                     isNight={this.isNight}
-                    windThreshhold={windThreshhold}
+                    windThreshhold={wind_strong}
                     {...hour}
                   />
                 ))}

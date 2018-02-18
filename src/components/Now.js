@@ -4,12 +4,15 @@ import TodayNight from './TodayNight';
 
 const Now = props => {
   let windDesc = '';
-  if (props.currentWindSpeed > props.windThreshhold) {
-    windDesc = 'strong winds';
-  } else if (props.currentWindSpeed > props.windThreshhold / 2) {
-    windDesc = 'moderate winds';
+  debugger;
+  if (props.currentWindSpeed > props.windVStrong) {
+    windDesc = 'gale force wind';
+  } else if (props.currentWindSpeed > props.windStrong) {
+    windDesc = 'strong wind';
+  } else if (props.currentWindSpeed > props.windMedium) {
+    windDesc = 'moderate wind';
   } else {
-    windDesc = 'nothing more than a gentle breeze';
+    windDesc = 'very little wind';
   }
   return (
     <div className="now">
