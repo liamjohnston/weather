@@ -4,7 +4,6 @@ import TodayNight from './TodayNight';
 
 const Now = props => {
   let windDesc = '';
-  debugger;
   if (props.currentWindSpeed > props.windVStrong) {
     windDesc = 'gale force wind';
   } else if (props.currentWindSpeed > props.windStrong) {

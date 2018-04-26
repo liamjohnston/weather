@@ -1,5 +1,5 @@
 {
-  "name": "Welly Weather",
+  "name": "Wellington Weather",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
     }
   ],
   "start_url": "./index.html",
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#56ccf2",
+  "background_color": "#56ccf2",
   "display": "standalone"
 }
