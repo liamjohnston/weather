@@ -25,6 +25,10 @@ body {
 p {
   margin: 0; // 0 0 1rem;
 }
+h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
 hr {
   height: 0;
   border: 0;
@@ -94,12 +98,9 @@ footer {
 }
 
 .now {
-  background: linear-gradient(to top, #56ccf2, #2f80ed);
+  background: linear-gradient(to bottom, #10a2d1, #2f9ded);
   color: #fff;
   text-align: left;
-  h2 {
-    text-align: center;
-  }
 }
 .now-main {
   padding: 3rem $side-pad 2rem;
@@ -141,7 +142,14 @@ footer {
   top: 8.5rem;
   width: 80%;
 }
-
+.updated {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  a {
+    padding-left: 0.3rem;
+    color: #fff;
+  }
+}
 .hourly {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
@@ -190,7 +198,8 @@ footer {
 }
 .future-direction {
   display: inline-block;
-  margin-right: 0.3rem;
+  margin-right: 0.5rem;
+  font-size: 1em;
 }
 .future-wind {
   text-align: right;

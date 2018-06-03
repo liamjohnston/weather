@@ -13,17 +13,36 @@ const Now = props => {
   } else {
     windDesc = 'very little wind';
   }
+
+  const d = new Date();
+  const getHour = () => {
+    const hour = d.getHours();
+    return hour > 12 ? hour - 12 : hour;
+  };
+  const getMins = () => {
+    const mins = d.getMinutes();
+    return mins < 10 ? `0${mins}` : mins;
+  };
+  const getAmPm = () => {
+    const hour = d.getHours();
+    return hour >= 12 ? 'pm' : 'am';
+  };
+
   return (
     <div className="now">
-      {/* <h2>
-        {props.where.city}, {props.where.country}
-      </h2> */}
       <div className="now-main">
         {!props.isNight(new Date().getHours()) ? (
           <TodayDay {...props} />
         ) : (
           <TodayNight {...props} />
         )}
+        <div className="updated">
+          Updated {getHour()}:{getMins()}
+          {getAmPm()}.{' '}
+          <a href="#0" onClick={props.fetchWeather}>
+            Refresh
+          </a>
+        </div>
         <hr />
         <div className="right-now">
           <div>
