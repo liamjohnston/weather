@@ -1,9 +1,10 @@
-#Update: 
-The free API was taken down... bummer :(
+# Update:
+
+The  Weather Underground API was taken down... bummer :(
 
 ---------------------
 
-A basic weather app (a trope, I know).
+A basic weather app.
 
 View it here:
 http://wellyweather.surge.sh/
