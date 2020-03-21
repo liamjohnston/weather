@@ -1,3 +1,8 @@
+#Update: 
+The free API was taken down... bummer :(
+
+---------------------
+
 A basic weather app (a trope, I know).
 
 View it here:
